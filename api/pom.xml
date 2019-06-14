@@ -3,14 +3,14 @@
   <parent>
     <groupId>edu.mum.cs544</groupId>
     <artifactId>ea-twitter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>edu.mum.cs544</groupId>
   <artifactId>ea-twitter.api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>ea-twitter api</name>
   <description>ea-twitter enterprise api</description>
+ 
 
-  <properties></properties>
+
   <dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -11,10 +11,15 @@
   <name>ea-twitter</name>  
   <packaging>pom</packaging>
   <description>ea-twitter</description>
+  
+  <properties>
+  	<ea-twitter.version>0.0.1-SNAPSHOT</ea-twitter.version>
+  </properties>
+    
   <modules>
   	<module>api</module>
   	<module>statistic</module>
   	<module>notification</module>
-  	<module>ea-twitter.model</module>
+  	<module>model</module>
   </modules>
 </project>

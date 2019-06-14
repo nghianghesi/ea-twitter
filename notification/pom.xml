@@ -3,10 +3,9 @@
   <parent>
     <groupId>edu.mum.cs544</groupId>
     <artifactId>ea-twitter</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>    
   </parent>
-  <groupId>edu.mum.cs544</groupId>
   <artifactId>ea-twitter.notification</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>ea-twitter notification</name>
   <description>ea-twitter notification</description>
   

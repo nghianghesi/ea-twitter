@@ -3,15 +3,11 @@
   <parent>
     <groupId>edu.mum.cs544</groupId>
     <artifactId>ea-twitter</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>    
   </parent>
-  <groupId>edu.mum.cs544</groupId>
   <artifactId>ea-twitter.statistic</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>ea-twitter statistic</name>
   <description>ea-twitter statistic</description>
-  
-  
-
   <properties></properties>
   <dependencies>
 		<dependency>
