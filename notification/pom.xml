@@ -10,4 +10,32 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>ea-twitter notification</name>
   <description>ea-twitter notification</description>
+  
+
+
+  <properties></properties>
+  <dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>	
+		<!-- Spring Boot Starters -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>  
+		
+		
+  </dependencies>    
+  
+  
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
