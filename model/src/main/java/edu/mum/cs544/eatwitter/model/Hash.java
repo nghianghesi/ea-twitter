@@ -1,4 +1,4 @@
-package eatwitter.models;
+package edu.mum.cs544.eatwitter.model;
 
 import java.util.ArrayList;
 import java.util.List;

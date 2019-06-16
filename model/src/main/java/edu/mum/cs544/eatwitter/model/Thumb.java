@@ -1,6 +1,8 @@
-package eatwitter.models;
+package edu.mum.cs544.eatwitter.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -12,26 +14,23 @@ public class Thumb {
 	@GeneratedValue
 	private long id;
 	
-	private int type;
+	@Enumerated(EnumType.STRING)
+	private ThumbType type;
 	
 	@ManyToOne 
 	@JoinColumn(name="by_user")
 	private User byUser;
 
-	public int getType() {
+	public ThumbType getType() {
 		return type;
 	}
 
-	public void setType(int type) {
-		this.type = type;
-	}
-	
 	public void setType(ThumbType type) {
-		this.type = type.getValue();
-	}
+		this.type = type;
+	}	
 	
 	public boolean isType(ThumbType type) {
-		return this.type == type.getValue();
+		return this.type == type;
 	}		
 
 	public User getByUser() {
@@ -45,6 +44,6 @@ public class Thumb {
 	public Thumb() {};
 	public Thumb(User by, ThumbType type) {
 		this.byUser = by;
-		this.type = type.getValue();
+		this.type = type;
 	};
 }

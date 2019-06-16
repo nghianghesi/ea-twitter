@@ -1,4 +1,4 @@
-package eatwitter.models;
+package edu.mum.cs544.eatwitter.model;
 
 public enum ThumbType {
 	Up(1), Down(-1), Neutral(0);

@@ -1,4 +1,4 @@
-package eatwitter.models;
+package edu.mum.cs544.eatwitter.model;
 
 import java.util.Date;
 
@@ -38,15 +38,15 @@ public abstract class AbstractTweet {
 	public void setByUser(User byUser) {
 		this.byUser = byUser;
 	}
-	protected abstract void thumb(EntityManager em, User by, ThumbType type);
-	public abstract ReTweet retweet(EntityManager em, User by);
+	protected abstract boolean thumb(PersistenceContextManager em, User by, ThumbType type);
+	public abstract boolean retweet(PersistenceContextManager em, User by);
 	
-	public void thumbUp(EntityManager em, User by) {
-		this.thumb(em, by, ThumbType.Up);
+	public boolean thumbUp(PersistenceContextManager em, User by) {
+		return this.thumb(em, by, ThumbType.Up);
 	}
 	
-	public void thumbDown(EntityManager em, User by) {
-		this.thumb(em, by, ThumbType.Down);
+	public boolean thumbDown(PersistenceContextManager em, User by) {
+		return this.thumb(em, by, ThumbType.Down);
 	}
 	
 	public abstract String getTweet(); 

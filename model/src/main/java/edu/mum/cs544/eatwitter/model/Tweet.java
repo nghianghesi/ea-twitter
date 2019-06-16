@@ -1,4 +1,4 @@
-package eatwitter.models;
+package edu.mum.cs544.eatwitter.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,10 +21,16 @@ public class Tweet extends AbstractTweet{
 	@SafeHtml
 	@NotBlank
 	private String tweet;
+	
+	
 	@OneToMany
 	@JoinColumn(name="tweet_id")
 	@MapKey(name="byUser")
 	private Map<User, Thumb> thumbs = new HashMap<User, Thumb>();
+	
+	@OneToMany(mappedBy="parent")
+	@MapKey(name="byUser")
+	private Map<User, ReTweet> retweets = new HashMap<User, ReTweet>();	
 	
 	@ManyToMany	
 	@MapKey(name="hash")
@@ -34,7 +40,7 @@ public class Tweet extends AbstractTweet{
 	private int retweetStats;
 	
 	@Override
-	protected void thumb(EntityManager em, User by, ThumbType type) {
+	protected boolean thumb(PersistenceContextManager em, User by, ThumbType type) {
 		if(this.thumbs.containsKey(by)) {
 			Thumb existing = this.thumbs.get(by);
 			if(existing.isType(type)) {
@@ -46,22 +52,29 @@ public class Tweet extends AbstractTweet{
 			}
 			em.merge(existing);
 			em.merge(this);
+			return false;
 		}else {
 			Thumb thumb = new Thumb(by, type);
 			this.thumbStats+=type.getValue();			
 			this.thumbs.put(by, thumb);			
 			em.merge(thumb);
 			em.merge(this);
+			return true;
 		}
 	}
 	
 	@Override
-	public ReTweet retweet(EntityManager em, User by) {
-		ReTweet tw = new ReTweet(this, by);
-		this.retweetStats+=1;
-		em.merge(tw);
-		em.merge(this);
-		return tw;
+	public boolean retweet(PersistenceContextManager em, User by) {
+		if(!this.retweets.containsKey(by)) {
+			ReTweet tw = new ReTweet(this, by);
+			this.retweetStats+=1;
+			this.retweets.put(by, tw);
+			em.merge(tw);
+			em.merge(this);
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override

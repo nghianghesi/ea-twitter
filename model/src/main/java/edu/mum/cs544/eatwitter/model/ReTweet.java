@@ -1,4 +1,4 @@
-package eatwitter.models;
+package edu.mum.cs544.eatwitter.model;
 
 import java.util.Date;
 
@@ -19,12 +19,12 @@ public class ReTweet extends AbstractTweet{
 	private Tweet parent;
 
 	@Override
-	protected void thumb(EntityManager em, User by, ThumbType type) {
-		this.parent.thumb(em, by, type);
+	protected boolean thumb(PersistenceContextManager em, User by, ThumbType type) {
+		return this.parent.thumb(em, by, type);
 	}
 
 	@Override
-	public ReTweet retweet(EntityManager em, User by) {
+	public boolean retweet(PersistenceContextManager em, User by) {
 		return this.parent.retweet(em, by);
 	}
 	
