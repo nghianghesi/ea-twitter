@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
@@ -60,11 +62,14 @@ public class TweetService {
 	}
 	
 	public List<AbstractTweet> recentTweets(UserPrincipal currentUser) {
-		return tweetRepository.findRecentTweets(currentUser.getId(), AppConstants.MAX_PAGE_SIZE);
+		return tweetRepository.findRecentTweets(currentUser.getId(),
+											PageRequest.of(1, AppConstants.MAX_PAGE_SIZE))
+								.getContent();
 	}
 	
 	public List<Tweet> hotTweets(UserPrincipal currentUser) {
-		return tweetRepository.findHotTweets(AppConstants.MAX_PAGE_SIZE);
+		return tweetRepository.findHotTweets(PageRequest.of(1, AppConstants.MAX_PAGE_SIZE))
+				.getContent();
 	}
 	
 	public AbstractTweet tweet(long currentUserId, TweetRequest tweet) {
