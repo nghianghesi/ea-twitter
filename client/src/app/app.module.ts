@@ -19,7 +19,6 @@ import { ErrorComponent } from './error/error.component';
 import { JwtDirective } from './auth/jwt.directive';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModules } from './material-modules';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 
@@ -33,10 +32,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HeaderComponent,
     HeaderComponent,
     ErrorComponent,
-    JwtDirective,
-    ConfirmDialogComponent
+    JwtDirective
   ],
-  entryComponents: [ConfirmDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

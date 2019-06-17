@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ManageMovieFormComponent } from '../movie-admin/movie-admin.component';
 
 export interface ConfirmDialgData{
   buttons?:'yesno'|'okcancel'|'okonly',
@@ -12,12 +11,12 @@ export interface ConfirmDialgData{
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.css']
 })
-export class ConfirmDialogComponent implements OnInit {
+export class ConfirmDialogComponent<T,R> implements OnInit {
   message:string;
   icon:string;
   buttons={}
   constructor(
-    private dialogRef: MatDialogRef<ManageMovieFormComponent>,
+    private dialogRef: MatDialogRef<T,R>,
     @Inject(MAT_DIALOG_DATA) 
     private data: ConfirmDialgData) { 
       this.message= data.message;
