@@ -19,12 +19,12 @@ public class ReTweet extends AbstractTweet{
 	private Tweet parent;
 
 	@Override
-	protected boolean thumb(PersistenceContextManager em, User by, ThumbType type) {
+	protected AbstractTweet thumb(PersistenceContextManager em, User by, ThumbType type) {
 		return this.parent.thumb(em, by, type);
 	}
 
 	@Override
-	public boolean retweet(PersistenceContextManager em, User by) {
+	public AbstractTweet retweet(PersistenceContextManager em, User by) {
 		return this.parent.retweet(em, by);
 	}
 	

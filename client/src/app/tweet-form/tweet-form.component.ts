@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TweetService } from '../services/tweetService';
 
 @Component({
   selector: 'app-tweet-form',
@@ -9,12 +10,12 @@ import { Router } from '@angular/router';
 })
 export class TweetFormComponent implements OnInit {
     myform:FormGroup;
-    loginsucceeded = false;
+    tweetsucceeded = false;
     errors='';
-    constructor(private fb:FormBuilder, private loginService:LoginService,private jwtHelper: JwtHelperService, private router: Router) {
+    constructor(private fb:FormBuilder, 
+      private tweetService:TweetService, private router: Router) {
       this.myform = this.fb.group({
-        'username':['',Validators.required],
-        'password':['',Validators.required]
+        'tweet':['',Validators.required, Validators.maxLength(255)]
       });        
     }
   
@@ -23,20 +24,12 @@ export class TweetFormComponent implements OnInit {
             && this.myform.get(field).touched
     }
     
-    onLogin ():void {
+    onTweet ():void {
       if(this.myform.valid){
-        this.loginService.doLogin(
-          this.myform.controls['username'].value,
-          this.myform.controls['password'].value)
+        this.tweetService.tweet(this.myform.controls['tweet'].value)
         .then((res:any)=>{
-          if(res.accessToken){
-            let userinfo = res.userPrincipal;
-            userinfo.jwt = res.accessToken;
-            userinfo.jwtType = res.tokenType;
-            authStore.dispatch(AuthActions.login(userinfo));
-            this.errors = '';
-            this.loginsucceeded = true;
-            this.router.navigate(['/']);
+          if(res.id){
+            this.tweetsucceeded = true;
           }else{
             this.errors = res.message;
           }

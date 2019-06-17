@@ -71,5 +71,6 @@
   	<module>statistic</module>
   	<module>notification</module>
   	<module>model</module>
+  	<module>ea-twitter.processor</module>
   </modules>
 </project>

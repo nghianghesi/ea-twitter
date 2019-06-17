@@ -1,5 +1,19 @@
 package edu.mum.cs544.eatwitter.model;
 
-public interface PersistenceContextManager {
-	public void merge(Object entity);
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class PersistenceContextManager {
+	  @Produces
+	  @RequestScoped
+	  @PersistenceContext
+	  public EntityManager entityManager;
+	public void merge(Object entity) {
+		this.entityManager.merge(entity);
+	}
 }

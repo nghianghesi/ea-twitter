@@ -44,14 +44,14 @@ public abstract class AbstractTweet {
 	public void setByUser(User byUser) {
 		this.byUser = byUser;
 	}
-	protected abstract boolean thumb(PersistenceContextManager em, User by, ThumbType type);
-	public abstract boolean retweet(PersistenceContextManager em, User by);
+	protected abstract AbstractTweet thumb(PersistenceContextManager em, User by, ThumbType type);
+	public abstract AbstractTweet retweet(PersistenceContextManager em, User by);
 	
-	public boolean thumbUp(PersistenceContextManager em, User by) {
+	public AbstractTweet thumbUp(PersistenceContextManager em, User by) {
 		return this.thumb(em, by, ThumbType.Up);
 	}
 	
-	public boolean thumbDown(PersistenceContextManager em, User by) {
+	public AbstractTweet thumbDown(PersistenceContextManager em, User by) {
 		return this.thumb(em, by, ThumbType.Down);
 	}
 	

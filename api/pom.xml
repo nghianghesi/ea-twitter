@@ -10,7 +10,6 @@
   <description>ea-twitter enterprise api</description>
 
   <dependencies>
-
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
