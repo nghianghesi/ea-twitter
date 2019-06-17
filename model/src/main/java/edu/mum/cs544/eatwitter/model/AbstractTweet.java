@@ -28,6 +28,9 @@ public abstract class AbstractTweet {
 	@JoinColumn(name="by_user")
 	private User byUser;	
 	
+	public long getId() {
+		return id;
+	}
 	public Date getDate() {
 		return date;
 	}
