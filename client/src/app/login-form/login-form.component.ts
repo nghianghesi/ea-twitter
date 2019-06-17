@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-
   myform:FormGroup;
   loginsucceeded = false;
   errors='';

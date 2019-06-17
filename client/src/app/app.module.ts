@@ -11,13 +11,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiUrlInterceptor } from './commons/api-interceptor';
 import { JwtConfig } from './auth/auth-jwt';
 import { LoginService } from './services/loginService';
+import { TweetService } from './services/tweetService';
 import { Configurations } from './commons/configurations';
 import { HeaderComponent } from './header/header.component';
 import { JWTCanActivate } from './auth/jwt-can-activate';
 import { ErrorService } from './services/errorService';
 import { ErrorComponent } from './error/error.component';
 import { JwtDirective } from './auth/jwt.directive';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModules } from './material-modules';
 import { TwitterComponent } from './twitter/twitter.component';
 import { TopTweetsComponent } from './top-tweets/top-tweets.component';
@@ -54,6 +55,7 @@ import { TweetFormComponent } from './tweet-form/tweet-form.component';
     {provide:HTTP_INTERCEPTORS, useClass:ApiUrlInterceptor, multi:true},
     Configurations,
     LoginService,
+    TweetService,
     JWTCanActivate,
     ErrorService
   ],
