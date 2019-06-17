@@ -10,17 +10,17 @@ export class JWTCanActivate{
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let roles = (route.data["roles"]) ? route.data["roles"] : null;        
-        if(authStore.getState().userinfo.userid>''){
-            if(roles==null || roles.length ==0){
+        let authorities = (route.data["authorities"]) ? route.data["authorities"] : null;        
+        if(authStore.getState().userinfo.id>''){
+            if(authorities==null || authorities.length ==0){
                 return true;
             }
 
             let granted = false;
-            authStore.getState().userinfo.roles.forEach(r=>{
+            authStore.getState().userinfo.authorities.forEach(r=>{
                 if(!granted){
-                    if((typeof roles == 'string' && roles == r) 
-                    || (typeof roles != 'string' && roles.indexOf(r)>=0)){
+                    if((typeof authorities == 'string' && authorities == r) 
+                    || (typeof authorities != 'string' && authorities.indexOf(r)>=0)){
                         granted = true;
                     }
                 }

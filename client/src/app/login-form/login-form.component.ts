@@ -34,15 +34,16 @@ export class LoginFormComponent implements OnInit {
         this.myform.controls['username'].value,
         this.myform.controls['password'].value)
       .then((res:any)=>{
-        if(res.succeeded){
-          let userinfo = res.data.userinfo;
-          userinfo.jwt = res.data.jwt;
+        if(res.accessToken){
+          let userinfo = res.userPrincipal;
+          userinfo.jwt = res.accessToken;
+          userinfo.jwtType = res.tokenType;
           authStore.dispatch(AuthActions.login(userinfo));
           this.errors = '';
           this.loginsucceeded = true;
           this.router.navigate(['/']);
         }else{
-          this.errors = res.error;
+          this.errors = res.message;
         }
       });
     }

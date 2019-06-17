@@ -19,6 +19,10 @@ import { ErrorComponent } from './error/error.component';
 import { JwtDirective } from './auth/jwt.directive';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModules } from './material-modules';
+import { TwitterComponent } from './twitter/twitter.component';
+import { TopTweetsComponent } from './top-tweets/top-tweets.component';
+import { RecentTweetsComponent } from './recent-tweets/recent-tweets.component';
+import { TweetFormComponent } from './tweet-form/tweet-form.component';
 
 
 
@@ -32,7 +36,11 @@ import { MaterialModules } from './material-modules';
     HeaderComponent,
     HeaderComponent,
     ErrorComponent,
-    JwtDirective
+    JwtDirective,
+    TwitterComponent,
+    TopTweetsComponent,
+    RecentTweetsComponent,
+    TweetFormComponent
   ],
   imports: [
     BrowserModule,

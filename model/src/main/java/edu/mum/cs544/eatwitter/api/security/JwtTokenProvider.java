@@ -42,22 +42,22 @@ public class JwtTokenProvider {
 		}
         
         return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))      
-                .setPayload(payload)
+                .setSubject(payload)      
+                //.setPayload(payload)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
-    public Long getUserIdFromJWT(String token) {
+    /*public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
         return Long.parseLong(claims.getSubject());
-    }
+    }*/
     
     public UserPrincipal getUserPrincipalFromJWT(String token) {
         Claims claims = Jwts.parser()

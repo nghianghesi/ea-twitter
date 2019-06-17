@@ -7,7 +7,7 @@ import { authStore } from './auth-store';
 export class JwtDirective implements OnInit, OnDestroy{
 
   @HostBinding('style.display') visibility;
-  @Input('jwt') roles:string|string[];
+  @Input('jwt') authorities:string|string[];
   unsubcribe;
   constructor(private el: ElementRef) { }
 
@@ -21,22 +21,22 @@ export class JwtDirective implements OnInit, OnDestroy{
 
 
   updateVisibility(){
-    if(authStore.getState().userinfo.userid==''){
+    if(authStore.getState().userinfo.id==''){
       return this.visibility='none';
     }
-    if(this.roles==null || this.roles=='' || this.roles.length==0){
+    if(this.authorities==null || this.authorities=='' || this.authorities.length==0){
       return this.visibility=this.el.nativeElement.previousvisibility;
     }
     let show = false;
-    authStore.getState().userinfo.roles.forEach((r) =>{
+    authStore.getState().userinfo.authorities.forEach((r) =>{
       if(!show){
-        if(typeof this.roles == 'string'){
-          if(this.roles == r){
+        if(typeof this.authorities == 'string'){
+          if(this.authorities == r){
             this.visibility=this.el.nativeElement.previousvisibility;
             show = true;
           }
         }else{
-          if(this.roles.indexOf(r)>=0){
+          if(this.authorities.indexOf(r)>=0){
             this.visibility=this.el.nativeElement.previousvisibility;
             show = true;
           }

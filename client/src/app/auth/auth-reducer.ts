@@ -11,10 +11,10 @@ if(initialState!=null){
 if(initialState==null || initialState.userinfo.exp < moment()){
     initialState={
         userinfo:{
-            userid:'',
+            id:'',
             jwt:'',
             username:'',
-            roles:[],
+            authorities:[],
             exp: moment().add(20,'minute')
         }
     }    
@@ -32,7 +32,7 @@ function login(state,action):IAuthState{
 }
 
 function logout(state, action):IAuthState{
-    const newstate = Object.assign({}, state, {userinfo:{userid:'', username:'', roles:[], jwt:''}})    
+    const newstate = Object.assign({}, state, {userinfo:{id:'', username:'', authorities:[], jwt:''}})    
     updateLocalToken(newstate);
     return newstate;
 }
