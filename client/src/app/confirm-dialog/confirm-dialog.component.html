@@ -1,0 +1,9 @@
+<p>
+   <mat-icon *ngIf="icon != null">{{icon}}</mat-icon>{{message}}
+</p>
+<div>
+  <button mat-stroked-button color="primary" *ngIf="buttons=='yesno'" (click)="accept(true)">Yes</button>
+  <button mat-stroked-button color="primary" *ngIf="buttons=='okcancel' || buttons=='okonly'" (click)="accept(true)">OK</button>
+  <button mat-stroked-button *ngIf="buttons=='yesno'" (click)="accept(false)">No</button>
+  <button mat-stroked-button *ngIf="buttons=='okcancel'" (click)="accept(false)">Cancel</button>
+</div>

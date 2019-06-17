@@ -1,8 +1,9 @@
 package edu.mum.cs544.eatwitter.api.config;
 
-import edu.mum.cs544.eatwitter.api.security.CustomUserDetailsService;
 import edu.mum.cs544.eatwitter.api.security.JwtAuthenticationEntryPoint;
 import edu.mum.cs544.eatwitter.api.security.JwtAuthenticationFilter;
+import edu.mum.cs544.eatwitter.service.CustomUserDetailsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

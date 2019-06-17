@@ -1,6 +1,7 @@
-package edu.mum.cs544.eatwitter.api.security;
+package edu.mum.cs544.eatwitter.service;
 
 import edu.mum.cs544.eatwitter.api.exception.ResourceNotFoundException;
+import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
 import edu.mum.cs544.eatwitter.model.User;
 import edu.mum.cs544.eatwitter.repository.UserRepository;
 
@@ -11,18 +12,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
-
-@Service
+@Service     
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String usernameOrEmail)
             throws UsernameNotFoundException {
         // Let people login with either username or email

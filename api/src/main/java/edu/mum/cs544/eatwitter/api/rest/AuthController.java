@@ -5,6 +5,8 @@ import edu.mum.cs544.eatwitter.dto.LoginRequest;
 import edu.mum.cs544.eatwitter.repository.RoleRepository;
 import edu.mum.cs544.eatwitter.repository.UserRepository;
 import edu.mum.cs544.eatwitter.api.security.JwtTokenProvider;
+import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,7 +41,7 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -51,6 +53,6 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,(UserPrincipal) authentication.getPrincipal()));
     }
 }

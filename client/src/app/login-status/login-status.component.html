@@ -1,0 +1,9 @@
+<p *ngIf="userinfo.userid != '';else elseBlock">
+  Welcome {{userinfo.username}} <a [routerLink]="['/logout']">Logout</a>  
+  Roles: {{userinfo.roles}}
+</p>
+<ng-template #elseBlock>
+  <p>Not login yet !!! <a [routerLink]="['/login']">Login</a>
+    | <a [routerLink]="['/signup']">Signup</a></p>
+</ng-template>
+
