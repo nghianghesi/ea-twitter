@@ -20,7 +20,7 @@ public class ReTweet extends AbstractTweet{
 
 	@Override
 	protected AbstractTweet thumb(PersistenceContextManager em, User by, ThumbType type) {
-		return this.parent.thumb(em, by, type);
+		return this.getByUser().equals(by) ? null : this.parent.thumb(em, by, type);
 	}
 
 	@Override

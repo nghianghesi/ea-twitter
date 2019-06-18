@@ -13,10 +13,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
+import edu.mum.cs544.eatwitter.service.TweetService;
 
 @Entity
 public class User {
+    private static final Logger logger = LoggerFactory.getLogger(TweetService.class);
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -36,7 +42,7 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((this.getUsername() == null) ? 0 : this.getUsername().toLowerCase().hashCode());
 		return result;
 	}
 
@@ -46,13 +52,14 @@ public class User {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!User.class.isInstance(obj))
 			return false;
-		User other = (User) obj;
-		if (username == null) {
-			if (other.username != null)
+
+		User other = (User) obj;		
+		if (this.getUsername() == null) {
+			if (other.getUsername() != null)
 				return false;
-		} else if (!username.equals(other.username))
+		} else if (!this.getUsername().equalsIgnoreCase(other.getUsername()))
 			return false;
 		return true;
 	}

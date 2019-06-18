@@ -16,4 +16,8 @@ public class PersistenceContextManager {
 	public void merge(Object entity) {
 		this.entityManager.merge(entity);
 	}
+	
+	public void persist(Object entity) {
+		this.entityManager.persist(entity);
+	}	
 }

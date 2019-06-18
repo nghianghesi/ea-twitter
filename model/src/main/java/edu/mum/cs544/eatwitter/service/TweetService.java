@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -34,8 +35,7 @@ public class TweetService {
 	@Autowired
 	private RabbitTemplate template;
 	@Autowired 
-	private TweetRepository tweetRepository;
-	
+	private TweetRepository tweetRepository;	
 	@Autowired 
 	private UserRepository userRepository;
 	
@@ -56,7 +56,7 @@ public class TweetService {
 	
 	public UUID queueRetweet(UserPrincipal currentUser,RetweetRequest retweet) {
 		RetweetMessage msg = new RetweetMessage(currentUser.getId(), retweet);
-		template.convertAndSend(AppConstants.THUMB_QUEUE, msg);
+		template.convertAndSend(AppConstants.RETWEET_QUEUE, msg);
 		return msg.getId();
 	}
 	
@@ -78,13 +78,14 @@ public class TweetService {
 			entity.setByUser(user);
 			entity.setDate(new Date());
 			entity.setTweet(tweet.getTweet());
-			return this.tweetRepository.save(entity);
+			persistenceContextManager.merge(entity);						
+			return entity;
 		}else {
 			return null;
 		}
 	}
 	
-	public AbstractTweet thumb(long currentUserId,ThumbRequest thumb) {
+	public AbstractTweet thumb(long currentUserId, ThumbRequest thumb) {
 		AbstractTweet entity = this.tweetRepository.getOne(thumb.getTweet_id());
 		User user = this.userRepository.getOne(currentUserId);		
 		if(entity!=null && user!=null) {
@@ -101,6 +102,10 @@ public class TweetService {
 	public AbstractTweet retweet(long currentUserId, RetweetRequest retweet) {
 		AbstractTweet entity = this.tweetRepository.getOne(retweet.getTweet_id());
 		User user = this.userRepository.getOne(currentUserId);		
-		return entity.retweet(persistenceContextManager, user);
+		if(entity!=null && user!=null) {
+			return entity.retweet(persistenceContextManager, user);
+		}else {
+			return null;
+		}
 	}	
 }

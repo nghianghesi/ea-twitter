@@ -45,24 +45,31 @@ public class Tweet extends AbstractTweet{
 	
 	@Override
 	protected AbstractTweet thumb(PersistenceContextManager em, User by, ThumbType type) {
+		if(this.getByUser().equals(by)) {
+			return null;
+		}
 		Thumb existing = this.thumbs.get(by);
 		if(existing!=null) {
 			if(existing.isType(type)) {
 				existing.setType(ThumbType.Neutral);
 				this.thumbStats-=type.getValue();
 			}else {
+				if(!existing.isType(ThumbType.Neutral)) {
+					this.thumbStats-=type.getValue()*2;
+				}else {
+					this.thumbStats+=type.getValue();
+				}
 				existing.setType(type);
-				this.thumbStats-=type.getValue()*2;
 			}
 			em.merge(existing);
-			em.merge(this);
+			em.merge(this);			
 			return this;
 		}else {
 			Thumb thumb = new Thumb(by, type);
 			this.thumbStats+=type.getValue();			
 			this.thumbs.put(by, thumb);			
-			em.merge(thumb);
-			em.merge(this);
+			em.persist(thumb);
+			em.merge(this);			
 			return this;
 		}
 	}
@@ -70,10 +77,10 @@ public class Tweet extends AbstractTweet{
 	@Override
 	public AbstractTweet retweet(PersistenceContextManager em, User by) {
 		if(!this.getByUser().equals(by) && !this.retweets.containsKey(by)) {
-			ReTweet tw = new ReTweet(this, by);
+			ReTweet rtw = new ReTweet(this, by);
 			this.retweetStats+=1;
-			this.retweets.put(by, tw);
-			em.merge(tw);
+			this.retweets.put(by, rtw);
+			em.persist(rtw);
 			em.merge(this);
 			return this;
 		}else {

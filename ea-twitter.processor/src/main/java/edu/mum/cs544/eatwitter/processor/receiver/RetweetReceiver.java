@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import edu.mum.cs544.eatwitter.dto.QueueMessage.RetweetMessage;
-import edu.mum.cs544.eatwitter.dto.QueueMessage.ThumbMessage;
 import edu.mum.cs544.eatwitter.service.TweetService;
 import edu.mum.cs544.eatwitter.util.AppConstants;
 
