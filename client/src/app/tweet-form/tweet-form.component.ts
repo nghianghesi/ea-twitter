@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TweetService } from '../services/tweetService';
 
 @Component({
-  selector: 'app-tweet-form',
+  selector: 'tweet-form',
   templateUrl: './tweet-form.component.html',
   styleUrls: ['./tweet-form.component.css']
 })
@@ -15,7 +15,7 @@ export class TweetFormComponent implements OnInit {
     constructor(private fb:FormBuilder, 
       private tweetService:TweetService, private router: Router) {
       this.myform = this.fb.group({
-        'tweet':['',Validators.required, Validators.maxLength(255)]
+        'tweet':['',Validators.compose([Validators.required, Validators.maxLength(255)])]
       });        
     }
   
@@ -29,6 +29,7 @@ export class TweetFormComponent implements OnInit {
         this.tweetService.tweet(this.myform.controls['tweet'].value)
         .then((res:any)=>{
           if(res.id){
+            this.myform.reset({});
             this.tweetsucceeded = true;
           }else{
             this.errors = res.message;

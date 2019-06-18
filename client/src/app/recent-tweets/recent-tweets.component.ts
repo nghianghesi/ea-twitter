@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-recent-tweets',
+  selector: 'recent-tweets',
   templateUrl: './recent-tweets.component.html',
   styleUrls: ['./recent-tweets.component.css']
 })

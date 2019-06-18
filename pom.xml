@@ -16,6 +16,7 @@
   	<ea-twitter.version>0.0.1-SNAPSHOT</ea-twitter.version>
   	<hibernate.validation.version>6.0.16.Final</hibernate.validation.version>
   	<jjwt.version>0.9.1</jjwt.version>
+  	<jsoup.verion>1.11.3</jsoup.verion>
   </properties>
     <dependencies>
 		<dependency>
@@ -53,7 +54,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>        
+		</dependency>      
+		<dependency> 
+			<groupId>org.jsoup</groupId> 
+			<artifactId>jsoup</artifactId> 
+			<version>${jsoup.verion}</version> 
+		</dependency>		  
     </dependencies>
      <build>
 	    <plugins>

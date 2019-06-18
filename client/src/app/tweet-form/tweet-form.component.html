@@ -1,8 +1,9 @@
-<form  class="form-container" *ngIf="!tweetsucceeded" [formGroup]="myform" (ngSubmit)="onTweet()">
+<form  class="form-container" [formGroup]="myform" (ngSubmit)="onTweet()">
   <mat-card-content class="form-container">
     <mat-form-field>
-    <input matInput  placeholder="Tweet:" type="text"
-    id="tweet" name="tweet" formControlName="text"/>
+    <textarea matInput  placeholder="Tweet:" rows="5"
+    id="tweet" name="tweet" formControlName="tweet"></textarea>
+
     <mat-error *ngIf="hasError('tweet', 'required')">Tweet is required.</mat-error>
     <mat-error *ngIf="hasError('tweet', 'maxlength')">Tweet is too long.</mat-error>
     </mat-form-field>

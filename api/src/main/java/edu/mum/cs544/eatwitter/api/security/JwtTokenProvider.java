@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.util.Date;
 
 @Component
@@ -65,7 +66,12 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
-        return objectMapper.convertValue(claims, UserPrincipal.class);
+        try {
+			return objectMapper.readValue(claims.getSubject(), UserPrincipal.class);
+		} catch (IOException e) {
+			logger.error("JWT error {}",e.getMessage());
+			return null;
+		}
     }    
 
     public boolean validateToken(String authToken) {
