@@ -25,7 +25,11 @@ public class ReTweet extends AbstractTweet{
 
 	@Override
 	public AbstractTweet retweet(PersistenceContextManager em, User by) {
-		return this.parent.retweet(em, by);
+		if(!this.getByUser().equals(by)) {
+			return this.parent.retweet(em, by);
+		}else {
+			return null;
+		}
 	}
 	
 	@Override
@@ -41,5 +45,15 @@ public class ReTweet extends AbstractTweet{
 	@Override
 	public int getRetweetStats() {
 		return this.parent.getRetweetStats();
+	}
+	
+	@Override
+	public Thumb getThumb(User byUser) {
+		return this.parent.getThumb(byUser);
+	}
+	
+	@Override
+	public ReTweet getRetweet(User byUser) {
+		return this.parent.getRetweet(byUser);
 	}
 }

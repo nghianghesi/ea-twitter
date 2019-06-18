@@ -1,3 +1,14 @@
 <mat-list role="list">
-  <mat-list-item  *ngFor="let item of tweets" role="listitem">{{item.tweet}}</mat-list-item>
+  <mat-list-item  *ngFor="let item of tweets" role="listitem">
+    <span matLine>{{item.tweet}}</span>
+    <button (click)="onThumbUp(item.id)" mat-icon-button aria-label="Like">
+        <mat-icon aria-hidden="false" aria-label="Like">thumb_up</mat-icon>
+    </button>
+    <button (click)="onThumbDown(item.id)" mat-icon-button aria-label="Like">
+        <mat-icon aria-hidden="false" aria-label="dislike">thumb_down</mat-icon>
+    </button>    
+    <button (click)="onRetweet(item.id)" mat-icon-button aria-label="Like">
+        <mat-icon aria-hidden="false" aria-label="retweet">repeat</mat-icon>
+    </button>    
+  </mat-list-item>
 </mat-list>

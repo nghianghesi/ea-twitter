@@ -13,6 +13,19 @@ export class RecentTweetsComponent implements OnInit {
     
   }
 
+
+  onThumbUp(tweetid:number){
+    this.tweetService.thumbup(tweetid);
+  }  
+  
+  onThumbDown(tweetid:number){
+    this.tweetService.thumbdown(tweetid);
+  }  
+  
+  onRetweet(tweetid:number){
+    this.tweetService.retweet(tweetid);
+  }
+
   ngOnInit() {
     this.tweetService.getRecentTweets().then((res) =>{
       this.tweets = res;

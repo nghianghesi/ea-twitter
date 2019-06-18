@@ -58,4 +58,6 @@ public abstract class AbstractTweet {
 	public abstract String getTweet(); 
 	public abstract  int getThumbStats();
 	public abstract int getRetweetStats();
+	public abstract Thumb getThumb(User byUser) ;
+	public abstract ReTweet getRetweet(User byUser) ;
 }

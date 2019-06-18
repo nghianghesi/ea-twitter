@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
+
 @Entity
 public class User {
 	@Id
@@ -108,4 +110,11 @@ public class User {
 		this.createdAt = createdAt;
 	}    
     
+	public User() {}
+	public User(UserPrincipal u) {
+		this.id= u.getId();
+		this.username = u.getUsername();
+		this.email = u.getEmail();
+		this.password = u.getPassword();
+	}
 }

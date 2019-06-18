@@ -3,6 +3,10 @@ package edu.mum.cs544.eatwitter.dto;
 import java.util.Date;
 
 import edu.mum.cs544.eatwitter.model.AbstractTweet;
+import edu.mum.cs544.eatwitter.model.ReTweet;
+import edu.mum.cs544.eatwitter.model.Thumb;
+import edu.mum.cs544.eatwitter.model.ThumbType;
+import edu.mum.cs544.eatwitter.model.User;
 
 public class TweetViewModel {
 	private long id;	
@@ -11,6 +15,8 @@ public class TweetViewModel {
 	private String byUser;		
 	private long thumbStats;
 	private long retweetStats;
+	private ThumbType thumbtype;
+	private boolean isRetweeted;
 	public long getId() {
 		return id;
 	}
@@ -20,42 +26,44 @@ public class TweetViewModel {
 	public Date getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	public String getByUser() {
 		return byUser;
-	}
-	public void setByUser(String byUser) {
-		this.byUser = byUser;
 	}
 	public long getThumbStats() {
 		return thumbStats;
 	}
-	public void setThumbStats(long thumbStats) {
-		this.thumbStats = thumbStats;
-	}
 	public long getRetweetStats() {
 		return retweetStats;
 	}
-	public void setRetweetStats(long retweetStats) {
-		this.retweetStats = retweetStats;
-	}
-	
-	
 	public String getTweet() {
 		return tweet;
 	}
-	public void setTweet(String tweet) {
-		this.tweet = tweet;
-	}
 	
-	public TweetViewModel(AbstractTweet tweet) {
+	public ThumbType getThumbtype() {
+		return thumbtype;
+	}
+	public boolean isRetweeted() {
+		return isRetweeted;
+	}
+	public TweetViewModel(AbstractTweet tweet, User currentUser) {
 		this.id = tweet.getId();
 		this.date = tweet.getDate();
 		this.byUser = tweet.getByUser().getUsername();
 		this.thumbStats = tweet.getThumbStats();
 		this.retweetStats = tweet.getRetweetStats();
 		this.tweet = tweet.getTweet();
+		Thumb thumb= tweet.getThumb(currentUser);
+		if(thumb!=null) {
+			this.thumbtype = thumb.getType();
+		}else {
+			this.thumbtype = ThumbType.Neutral;
+		}
+		
+		ReTweet rt = tweet.getRetweet(currentUser);
+		if(rt!=null) {
+			this.isRetweeted = true;
+		}else {
+			this.isRetweeted = false;
+		}
 	}	
 }

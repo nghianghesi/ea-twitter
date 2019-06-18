@@ -12,6 +12,8 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
@@ -24,10 +26,12 @@ public class Tweet extends AbstractTweet{
 	@OneToMany
 	@JoinColumn(name="tweet_id")
 	@MapKey(name="byUser")
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private Map<User, Thumb> thumbs = new HashMap<User, Thumb>();
 	
 	@OneToMany(mappedBy="parent")
 	@MapKey(name="byUser")
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private Map<User, ReTweet> retweets = new HashMap<User, ReTweet>();	
 	
 	@ManyToMany	
@@ -41,8 +45,8 @@ public class Tweet extends AbstractTweet{
 	
 	@Override
 	protected AbstractTweet thumb(PersistenceContextManager em, User by, ThumbType type) {
-		if(this.thumbs.containsKey(by)) {
-			Thumb existing = this.thumbs.get(by);
+		Thumb existing = this.thumbs.get(by);
+		if(existing!=null) {
 			if(existing.isType(type)) {
 				existing.setType(ThumbType.Neutral);
 				this.thumbStats-=type.getValue();
@@ -65,7 +69,7 @@ public class Tweet extends AbstractTweet{
 	
 	@Override
 	public AbstractTweet retweet(PersistenceContextManager em, User by) {
-		if(!this.retweets.containsKey(by)) {
+		if(!this.getByUser().equals(by) && !this.retweets.containsKey(by)) {
 			ReTweet tw = new ReTweet(this, by);
 			this.retweetStats+=1;
 			this.retweets.put(by, tw);
@@ -73,7 +77,7 @@ public class Tweet extends AbstractTweet{
 			em.merge(this);
 			return this;
 		}else {
-			return this;
+			return null;
 		}
 	}
 
@@ -95,4 +99,15 @@ public class Tweet extends AbstractTweet{
 	public int getRetweetStats() {
 		return retweetStats;
 	}
+	
+	@Override
+	public Thumb getThumb(User byUser) {
+		return this.thumbs.get(byUser);
+	}
+	
+
+	@Override
+	public ReTweet getRetweet(User byUser) {
+		return this.retweets.get(byUser);
+	}	
 }

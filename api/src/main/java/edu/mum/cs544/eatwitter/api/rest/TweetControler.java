@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +22,7 @@ import edu.mum.cs544.eatwitter.dto.AcknowledgementResponse;
 import edu.mum.cs544.eatwitter.dto.TweetRequest;
 import edu.mum.cs544.eatwitter.dto.TweetViewModel;
 import edu.mum.cs544.eatwitter.model.AbstractTweet;
+import edu.mum.cs544.eatwitter.model.User;
 import edu.mum.cs544.eatwitter.service.TweetService;
 
 @RestController
@@ -55,21 +54,22 @@ public class TweetControler {
 	}
 
 	
-	private List<TweetViewModel> toListTweetViewModel(List<? extends AbstractTweet> list){
+	private List<TweetViewModel> toListTweetViewModel(List<? extends AbstractTweet> list, UserPrincipal currentUser){
+		User u = new User(currentUser);
 		return list.stream()
-		.map(t -> new TweetViewModel(t))
+		.map(t -> new TweetViewModel(t, u))
 		.collect(Collectors.toList());
 	}
 	
 	@GetMapping(value="/recent")
 	public ResponseEntity<?> recentTweets(@CurrentUser UserPrincipal currentUser){
-		List<TweetViewModel> list=toListTweetViewModel(tweetService.recentTweets(currentUser));
+		List<TweetViewModel> list=toListTweetViewModel(tweetService.recentTweets(currentUser), currentUser);
 		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping(value="/hot")
 	public ResponseEntity<?> topTweets(@CurrentUser UserPrincipal currentUser){
-		List<TweetViewModel> list=toListTweetViewModel(tweetService.hotTweets(currentUser));		
+		List<TweetViewModel> list=toListTweetViewModel(tweetService.hotTweets(currentUser), currentUser);		
 		return ResponseEntity.ok(list);
 	}	
 	
