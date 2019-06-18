@@ -1,3 +1,3 @@
-<p>
-  recent-tweets works!
-</p>
+<mat-list role="list">
+  <mat-list-item  *ngFor="let item of tweets" role="listitem">{{item.tweet}}</mat-list-item>
+</mat-list>

@@ -6,6 +6,7 @@ import edu.mum.cs544.eatwitter.model.AbstractTweet;
 
 public class TweetViewModel {
 	private long id;	
+	private String tweet;
 	private Date date;	
 	private String byUser;		
 	private long thumbStats;
@@ -40,11 +41,21 @@ public class TweetViewModel {
 	public void setRetweetStats(long retweetStats) {
 		this.retweetStats = retweetStats;
 	}
+	
+	
+	public String getTweet() {
+		return tweet;
+	}
+	public void setTweet(String tweet) {
+		this.tweet = tweet;
+	}
+	
 	public TweetViewModel(AbstractTweet tweet) {
 		this.id = tweet.getId();
 		this.date = tweet.getDate();
 		this.byUser = tweet.getByUser().getUsername();
 		this.thumbStats = tweet.getThumbStats();
 		this.retweetStats = tweet.getRetweetStats();
+		this.tweet = tweet.getTweet();
 	}	
 }

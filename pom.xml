@@ -78,5 +78,6 @@
   	<module>notification</module>
   	<module>model</module>
   	<module>ea-twitter.processor</module>
+  	<module>ea-twitter.web</module>
   </modules>
 </project>

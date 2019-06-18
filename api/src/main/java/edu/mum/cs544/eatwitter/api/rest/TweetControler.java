@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ import edu.mum.cs544.eatwitter.service.TweetService;
 @RestController
 @RequestMapping("/api/tweet")
 public class TweetControler {
+	
 	@Autowired
 	private TweetService tweetService;
 	
@@ -69,4 +72,9 @@ public class TweetControler {
 		List<TweetViewModel> list=toListTweetViewModel(tweetService.hotTweets(currentUser));		
 		return ResponseEntity.ok(list);
 	}	
+	
+	@GetMapping(value="/test")
+	public ResponseEntity<?> test(){		
+		return ResponseEntity.ok("This is test");
+	}
 }

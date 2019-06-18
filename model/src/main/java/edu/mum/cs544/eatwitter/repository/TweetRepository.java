@@ -12,7 +12,8 @@ public interface TweetRepository extends JpaRepository<AbstractTweet, Long>{
 	@Query("SELECT DISTINCT t FROM AbstractTweet t "
 			+ "JOIN FETCH t.byUser "
 			+ "JOIN User u ON u.id = ?1 "
-			+ "JOIN u.friends f ON f.id = t.byUser.id "
+			+ "LEFT JOIN u.friends f "
+			+ "WHERE (f.id = t.byUser.id OR u.id = t.byUser.id) "
 			+ "ORDER BY t.date DESC ")
 	Slice<AbstractTweet> findRecentTweets(long currentUserId, Pageable pageable);
 	

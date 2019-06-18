@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { TweetService } from '../services/tweetService';
 
 @Component({
@@ -12,8 +11,7 @@ export class TweetFormComponent implements OnInit {
     myform:FormGroup;
     tweetsucceeded = false;
     errors='';
-    constructor(private fb:FormBuilder, 
-      private tweetService:TweetService, private router: Router) {
+    constructor(private fb:FormBuilder, private tweetService:TweetService) {
       this.myform = this.fb.group({
         'tweet':['',Validators.compose([Validators.required, Validators.maxLength(255)])]
       });        

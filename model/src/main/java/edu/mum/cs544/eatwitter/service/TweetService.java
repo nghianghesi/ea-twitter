@@ -63,12 +63,12 @@ public class TweetService {
 	
 	public List<AbstractTweet> recentTweets(UserPrincipal currentUser) {
 		return tweetRepository.findRecentTweets(currentUser.getId(),
-											PageRequest.of(1, AppConstants.MAX_PAGE_SIZE))
+											PageRequest.of(0, AppConstants.MAX_PAGE_SIZE))
 								.getContent();
 	}
 	
 	public List<Tweet> hotTweets(UserPrincipal currentUser) {
-		return tweetRepository.findHotTweets(PageRequest.of(1, AppConstants.MAX_PAGE_SIZE))
+		return tweetRepository.findHotTweets(PageRequest.of(0, AppConstants.MAX_PAGE_SIZE))
 				.getContent();
 	}
 	

@@ -7,6 +7,14 @@ import { HttpClient } from '@angular/common/http';
 export class TweetService{
     constructor(private http:HttpClient){}
 
+    getRecentTweets():Promise<any>{
+        return this.http.get('<api>tweet/recent').toPromise();
+    }   
+
+    getHotTweets():Promise<any>{
+        return this.http.get('<api>tweet/hot').toPromise();
+    }     
+    
     tweet(tweet:string):Promise<any>{
         return this.http.post('<api>tweet',{tweet:tweet}).toPromise();
     }   

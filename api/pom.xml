@@ -27,7 +27,12 @@
 			<groupId>edu.mum.cs544</groupId>
 			<artifactId>ea-twitter.model</artifactId>
 			<version>${ea-twitter.version}</version>
-		</dependency>				
+		</dependency>			
+		<dependency>
+			<groupId>edu.mum.cs544</groupId>
+			<artifactId>ea-twitter.web</artifactId>
+			<version>${ea-twitter.version}</version>
+		</dependency>	
   </dependencies>
   
     
