@@ -1,6 +1,6 @@
 #FileLock
-#Wed Jun 19 06:00:21 ICT 2019
+#Wed Jun 19 20:39:46 ICT 2019
 hostName=DESKTOP-HMLKRVC.mshome.net
-id=16b6cd1dbf77551307a458f03407f8882888220b9eb
+id=16b6ff6fd2665cc43a7c756cc3f6955ff69a1ffa6e7
 method=file
-server=172.30.107.241\:1973
+server=172.30.107.241\:22058

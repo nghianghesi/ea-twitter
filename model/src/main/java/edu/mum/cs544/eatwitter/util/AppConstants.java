@@ -10,4 +10,5 @@ public interface AppConstants {
     String THUMB_QUEUE = "thumb";
     String RETWEET_QUEUE = "retweet";
     String TWEETUPDATED_QUEUE = "tweetupdated";
+    String AppName = "eatwitter";
 }

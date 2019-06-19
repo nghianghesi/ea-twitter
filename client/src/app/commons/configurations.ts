@@ -4,6 +4,8 @@ import { Injectable } from "@angular/core";
 export class Configurations{
     baseApiUrl = '';
     baseNotificationUrl = '';
+    appName = 'eatwitter';
+    tweetUpdatedQueue="/user/queue/tweetupdated"
     constructor(){
         const children = Array.prototype.slice.call(window.document.getElementsByTagName('apibase'));
         children.forEach((el) =>{

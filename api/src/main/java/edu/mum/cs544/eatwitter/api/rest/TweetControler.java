@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.mum.cs544.eatwitter.api.security.CurrentUser;
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
 import edu.mum.cs544.eatwitter.dto.RetweetRequest;
 import edu.mum.cs544.eatwitter.dto.ThumbRequest;
@@ -23,6 +22,7 @@ import edu.mum.cs544.eatwitter.dto.TweetRequest;
 import edu.mum.cs544.eatwitter.dto.TweetViewModel;
 import edu.mum.cs544.eatwitter.model.AbstractTweet;
 import edu.mum.cs544.eatwitter.model.User;
+import edu.mum.cs544.eatwitter.security.jwt.CurrentUser;
 import edu.mum.cs544.eatwitter.service.TweetService;
 
 @RestController

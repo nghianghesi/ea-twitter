@@ -18,8 +18,8 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency> 
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-websocket</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 		 
 		<dependency>

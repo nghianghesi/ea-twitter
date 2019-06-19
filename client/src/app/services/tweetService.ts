@@ -16,7 +16,7 @@ export class TweetService{
     }     
     
     tweet(tweet:string):Promise<any>{
-        return this.http.post('<api>tweet/tweet',{tweet:tweet}).toPromise();
+        return this.http.post('<api>tweet',{tweet:tweet}).toPromise();
     }   
     
     retweet(tweet_id:number):Promise<any>{

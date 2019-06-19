@@ -4,8 +4,9 @@ import edu.mum.cs544.eatwitter.api.exception.ResourceNotFoundException;
 import edu.mum.cs544.eatwitter.dto.*;
 import edu.mum.cs544.eatwitter.model.User;
 import edu.mum.cs544.eatwitter.repository.UserRepository;
+import edu.mum.cs544.eatwitter.security.jwt.CurrentUser;
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
-import edu.mum.cs544.eatwitter.api.security.CurrentUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TweetService } from '../services/tweetService';
+import { NotificationWebsocketService } from '../services/NotificationWebsocketService';
 
 @Component({
   selector: 'recent-tweets',
@@ -9,7 +10,7 @@ import { TweetService } from '../services/tweetService';
 export class RecentTweetsComponent implements OnInit {
 
   tweets = [];
-  constructor(private tweetService : TweetService) { 
+  constructor(private tweetService : TweetService,private notification: NotificationWebsocketService ) { 
     
   }
 

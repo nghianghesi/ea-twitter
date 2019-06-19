@@ -4,7 +4,7 @@ import edu.mum.cs544.eatwitter.dto.JwtAuthenticationResponse;
 import edu.mum.cs544.eatwitter.dto.LoginRequest;
 import edu.mum.cs544.eatwitter.repository.RoleRepository;
 import edu.mum.cs544.eatwitter.repository.UserRepository;
-import edu.mum.cs544.eatwitter.api.security.JwtTokenProvider;
+import edu.mum.cs544.eatwitter.security.jwt.JwtTokenProvider;
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
