@@ -45,14 +45,14 @@ export class RecentTweetsComponent implements OnInit, OnDestroy {
         if(maxDate==null || maxDate<t.date){
           maxDate = t.date;
         }
-        if(t.id == updatedTweet.id){
-          t = updatedTweet.thumbStats;
-          t = updatedTweet.retweetStats;
+        if(t.id == updatedTweet.id || t.parent_id == updatedTweet.id){
+          t.thumbStats = updatedTweet.thumbStats;
+          t.retweetStats = updatedTweet.retweetStats;
           hasTweetInlist=true;
         }
       });
 
-      if(!hasTweetInlist && (maxDate==null || updatedTweet.date >= maxDate)){
+      if(!hasTweetInlist && (this.tweets.length < this.config.recentListSize || updatedTweet.date >= maxDate)){
         this.tweets.unshift(updatedTweet);
       }
       while(this.tweets.length > this.config.recentListSize){

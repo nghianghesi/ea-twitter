@@ -1,6 +1,7 @@
 package edu.mum.cs544.eatwitter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import edu.mum.cs544.eatwitter.model.User;
@@ -22,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+    
+    @Query("SELECT DISTINCT u FROM User u JOIN u.friends f WHERE f.id = ?1")
+    List<User> findFriendsById(long userId);
 }

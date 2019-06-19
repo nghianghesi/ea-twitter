@@ -1,5 +1,7 @@
 package edu.mum.cs544.eatwitter.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import edu.mum.cs544.eatwitter.model.AbstractTweet;
 import edu.mum.cs544.eatwitter.model.Tweet;
+import edu.mum.cs544.eatwitter.model.User;
 
 public interface TweetRepository extends JpaRepository<AbstractTweet, Long>{
 	@Query("SELECT DISTINCT t FROM AbstractTweet t "
@@ -22,5 +25,6 @@ public interface TweetRepository extends JpaRepository<AbstractTweet, Long>{
 			+ "ORDER BY t.thumbStats DESC ")
 	Slice<Tweet> findHotTweets(Pageable pageable);
 	
-	
+	@Query("SELECT t.byUser FROM ReTweet t WHERE t.parent.id = ?1")
+	List<User> findRetweetUsers(long tweetid);
 }

@@ -15,6 +15,7 @@ public class TweetViewModel implements Serializable{
 	private String tweet;
 	private Date date;	
 	private String byUser;		
+	private long byUserId;		
 	private long thumbStats;
 	private long retweetStats;
 	private ThumbType thumbtype;
@@ -22,14 +23,14 @@ public class TweetViewModel implements Serializable{
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public Date getDate() {
 		return date;
 	}
 	public String getByUser() {
 		return byUser;
+	}
+	public long getByUserId() {
+		return byUserId;
 	}
 	public long getThumbStats() {
 		return thumbStats;
@@ -47,10 +48,41 @@ public class TweetViewModel implements Serializable{
 	public boolean isRetweeted() {
 		return isRetweeted;
 	}
+	
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	public void setTweet(String tweet) {
+		this.tweet = tweet;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setByUser(String byUser) {
+		this.byUser = byUser;
+	}
+	public void setByUserId(long byUserId) {
+		this.byUserId = byUserId;
+	}
+	public void setThumbStats(long thumbStats) {
+		this.thumbStats = thumbStats;
+	}
+	public void setRetweetStats(long retweetStats) {
+		this.retweetStats = retweetStats;
+	}
+	public void setThumbtype(ThumbType thumbtype) {
+		this.thumbtype = thumbtype;
+	}
+	public void setRetweeted(boolean isRetweeted) {
+		this.isRetweeted = isRetweeted;
+	}
+	
 	public TweetViewModel(AbstractTweet tweet, User currentUser) {
 		this.id = tweet.getId();
 		this.date = tweet.getDate();
 		this.byUser = tweet.getByUser().getUsername();
+		this.byUserId = tweet.getByUser().getId();
 		this.thumbStats = tweet.getThumbStats();
 		this.retweetStats = tweet.getRetweetStats();
 		this.tweet = tweet.getTweet();

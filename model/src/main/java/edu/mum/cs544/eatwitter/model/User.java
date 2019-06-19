@@ -11,18 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
 import edu.mum.cs544.eatwitter.dto.UserIdAndUsername;
-import edu.mum.cs544.eatwitter.service.TweetService;
 
 @Entity
 public class User  implements UserIdAndUsername{
-    private static final Logger logger = LoggerFactory.getLogger(TweetService.class);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +30,9 @@ public class User  implements UserIdAndUsername{
 	private String email;
 	private Instant createdAt;
 	
-	@OneToMany
+	@ManyToMany
 	private List<User> friends = new ArrayList<User>();
-	@OneToMany
+	@ManyToMany
 	private Set<Role> roles = new HashSet<Role>();
 
 	@Override

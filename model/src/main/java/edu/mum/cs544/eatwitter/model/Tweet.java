@@ -62,7 +62,7 @@ public class Tweet extends AbstractTweet{
 				this.thumbStats-=type.getValue();
 			}else {
 				if(!existing.isType(ThumbType.Neutral)) {
-					this.thumbStats-=type.getValue()*2;
+					this.thumbStats+=type.getValue()*2;
 				}else {
 					this.thumbStats+=type.getValue();
 				}

@@ -15,8 +15,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
 import edu.mum.cs544.eatwitter.dto.QueueMessage.TweetUpdatedMessage;
-import edu.mum.cs544.eatwitter.notification.service.NotificationService;
 import edu.mum.cs544.eatwitter.security.jwt.JwtTokenProvider;
+import edu.mum.cs544.eatwitter.service.NotificationService;
 import edu.mum.cs544.eatwitter.util.AppConstants;
 
 @Controller
@@ -33,8 +33,7 @@ public class NotificationController {
     
 	@RabbitHandler
 	public void receive(TweetUpdatedMessage msg) {
-		logger.info("Send socket message to {}",msg.getBy_username());
-		this.notificationService.notify(msg.getBy_username(), AppConstants.TWEETUPDATED_QUEUE, msg.getRequest()); 
+		this.notificationService.nofityTweetChangeToAuthorAndFollower(msg.getRequest()); 
 	}	
 	
 	@MessageMapping("/register")

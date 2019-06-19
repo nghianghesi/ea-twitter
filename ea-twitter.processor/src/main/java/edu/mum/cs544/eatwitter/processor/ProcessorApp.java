@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import edu.mum.cs544.eatwitter.util.AppConstants;
@@ -44,4 +45,5 @@ public class ProcessorApp {
 	public Queue tweetupdatedQueue() {
 		return new Queue(AppConstants.TWEETUPDATED_QUEUE);
 	}	
+	
 }
