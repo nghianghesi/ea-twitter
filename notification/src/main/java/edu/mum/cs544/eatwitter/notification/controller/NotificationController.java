@@ -34,7 +34,7 @@ public class NotificationController {
 	@RabbitHandler
 	public void receive(TweetUpdatedMessage msg) {
 		logger.info("Send socket message to {}",msg.getBy_username());
-		this.notificationService.notify(msg.getBy_username(), AppConstants.TWEETUPDATED_QUEUE, msg); 
+		this.notificationService.notify(msg.getBy_username(), AppConstants.TWEETUPDATED_QUEUE, msg.getRequest()); 
 	}	
 	
 	@MessageMapping("/register")

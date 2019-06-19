@@ -5,6 +5,18 @@ import { Configurations } from '../commons/configurations';
 
 import { authStore } from '../auth/auth-store';
 import { IUserInfo } from '../auth/auth-state';
+import { Subject } from 'rxjs';
+
+export interface  TweetUpdatedData{
+  id:number;	
+	tweet:String;
+	date:Date;	
+	byUser:String;		
+	thumbStats:number;
+	retweetStats:number;
+	thumbtype:String;
+	isRetweeted:boolean;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +27,10 @@ export class NotificationWebsocketService  implements OnInit, OnDestroy{
     private unsubscribeAuth; 
     private unsubscribeSocket;
     private sessionId;
-      
+    private tweetUpdatedSubject = new Subject<TweetUpdatedData>();
+    public get TweetUpdatedSubject(){
+      return this.tweetUpdatedSubject;
+    }
   constructor(private config: Configurations) {                                 
     let socketurl = config.baseNotificationUrl + config.appName;
     let ws = new SockJS(socketurl);
@@ -40,6 +55,7 @@ export class NotificationWebsocketService  implements OnInit, OnDestroy{
         this.unsubscribeSocket = this.stompClient.subscribe(this.config.tweetUpdatedQueue+"/"+this.sessionId, 
         (msgOut) => {
             console.log(msgOut);
+            this.tweetUpdatedSubject.next(JSON.parse(msgOut.body))            
         });
     }
   }

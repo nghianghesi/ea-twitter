@@ -1,7 +1,7 @@
 <form  class="form-container" [formGroup]="myform" (ngSubmit)="onTweet()">
   <mat-card-content class="form-container">
     <mat-form-field>
-    <textarea matInput  placeholder="Tweet:" rows="5"
+    <textarea matInput  placeholder="Tweet:" rows="2"
     id="tweet" name="tweet" formControlName="tweet"></textarea>
 
     <mat-error *ngIf="hasError('tweet', 'required')">Tweet is required.</mat-error>

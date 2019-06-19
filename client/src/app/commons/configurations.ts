@@ -5,7 +5,8 @@ export class Configurations{
     baseApiUrl = '';
     baseNotificationUrl = '';
     appName = 'eatwitter';
-    tweetUpdatedQueue="/queue/tweetupdated"
+    tweetUpdatedQueue="/queue/tweetupdated";
+    recentListSize=25;
     constructor(){
         const children = Array.prototype.slice.call(window.document.getElementsByTagName('apibase'));
         children.forEach((el) =>{
