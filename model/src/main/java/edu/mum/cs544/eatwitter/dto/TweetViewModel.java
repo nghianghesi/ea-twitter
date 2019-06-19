@@ -10,6 +10,7 @@ import edu.mum.cs544.eatwitter.model.ThumbType;
 import edu.mum.cs544.eatwitter.model.User;
 
 public class TweetViewModel implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private long id;	
 	private String tweet;
 	private Date date;	

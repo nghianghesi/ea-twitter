@@ -3,6 +3,8 @@ package edu.mum.cs544.eatwitter.notification.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -11,10 +13,12 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
+import edu.mum.cs544.eatwitter.notification.controller.NotificationController;
 
 @Service
 public class NotificationService {
-	
+    private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
+
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
@@ -22,6 +26,7 @@ public class NotificationService {
 
 	
 	public void register(UserPrincipal user, String sessionid) {
+		logger.info("registered {} {}",user.getUsername(), sessionid);
 		this.onlineUsernameToSessionId.put(user.getUsername(), sessionid);
 	}
 	
@@ -32,8 +37,9 @@ public class NotificationService {
 	public void notify(String username, String channel, Object message) {		
 		String sessionId = this.onlineUsernameToSessionId.getOrDefault(username, null);
 		if(sessionId!=null) {
+			logger.info("Send message to {} {}",sessionId, channel);
 			this.simpMessagingTemplate
-			.convertAndSendToUser(sessionId, channel, message, createHeader(sessionId));
+			.convertAndSend("/queue/"+channel+"/"+sessionId, message, createHeader(sessionId));
 		}
 	}
 	

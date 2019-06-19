@@ -11,20 +11,23 @@ import { IUserInfo } from '../auth/auth-state';
 })
 export class NotificationWebsocketService  implements OnInit, OnDestroy{
     private stompClient;
-    private connected = false;
     private registeredJwt;
     private unsubscribeAuth; 
     private unsubscribeSocket;
+    private sessionId;
       
   constructor(private config: Configurations) {                                 
     let socketurl = config.baseNotificationUrl + config.appName;
     let ws = new SockJS(socketurl);
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, (frame) => {
-        console.log("socket connected");
-        this.connected = true;
-        this.registerJwt(authStore.getState().userinfo);                  
-        this.subcribeForUpdates();
+        console.log("socket connected ");
+        let urlSplits = ws._transport.url.split('/');
+        if(urlSplits.length>2){
+          this.sessionId = urlSplits[urlSplits.length-2];
+          this.registerJwt(authStore.getState().userinfo);                  
+          this.subcribeForUpdates();
+        }
     });
   }
 
@@ -33,8 +36,8 @@ export class NotificationWebsocketService  implements OnInit, OnDestroy{
         this.unsubscribeSocket();
         this.unsubscribeSocket = null;
     }  
-    if(this.connected)  {
-        this.unsubscribeSocket = this.stompClient.subscribe(this.config.tweetUpdatedQueue, 
+    if(this.sessionId>'')  {
+        this.unsubscribeSocket = this.stompClient.subscribe(this.config.tweetUpdatedQueue+"/"+this.sessionId, 
         (msgOut) => {
             console.log(msgOut);
         });

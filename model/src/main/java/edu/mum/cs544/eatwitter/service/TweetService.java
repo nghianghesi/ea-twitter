@@ -24,6 +24,7 @@ import edu.mum.cs544.eatwitter.repository.UserRepository;
 import edu.mum.cs544.eatwitter.dto.QueueMessage.RetweetMessage;
 import edu.mum.cs544.eatwitter.dto.QueueMessage.ThumbMessage;
 import edu.mum.cs544.eatwitter.dto.QueueMessage.TweetMessage;
+import edu.mum.cs544.eatwitter.dto.QueueMessage.TweetUpdatedMessage;
 import edu.mum.cs544.eatwitter.dto.RetweetRequest;
 import edu.mum.cs544.eatwitter.dto.ThumbRequest;
 import edu.mum.cs544.eatwitter.util.AppConstants;
@@ -79,9 +80,7 @@ public class TweetService {
 			persistenceContextManager.persist(tweet);						
 		}
 
-		if(tweet!=null) {
-			this.template.convertAndSend(new TweetViewModel(tweet, user));
-		}
+		this.notifyTweetUpdate(tweet,user);
 		return tweet;
 	}
 	
@@ -96,19 +95,28 @@ public class TweetService {
 				updatedTweet = entity.thumbUp(persistenceContextManager, user);
 			}
 		}
-		if(updatedTweet != null) {
-			this.template.convertAndSend(new TweetViewModel(updatedTweet, user));
-		}
+
+		this.notifyTweetUpdate(updatedTweet,user);
 		return updatedTweet;
+	}
+	
+	private void notifyTweetUpdate(AbstractTweet updatedTweet, User user) {
+		if(updatedTweet != null) {
+			TweetViewModel vm = new TweetViewModel(updatedTweet, user);
+			TweetUpdatedMessage msg = new TweetUpdatedMessage(user, vm);
+			this.template.convertAndSend(AppConstants.TWEETUPDATED_QUEUE, msg);
+		}
 	}
 	
 	public AbstractTweet retweet(long currentUserId, RetweetRequest retweet) {
 		AbstractTweet entity = this.tweetRepository.getOne(retweet.getTweet_id());
+		AbstractTweet updatedTweet = null;
 		User user = this.userRepository.getOne(currentUserId);		
 		if(entity!=null && user!=null) {
-			return entity.retweet(persistenceContextManager, user);
-		}else {
-			return null;
+			updatedTweet = entity.retweet(persistenceContextManager, user);
 		}
+		
+		this.notifyTweetUpdate(updatedTweet,user);
+		return updatedTweet;		
 	}	
 }

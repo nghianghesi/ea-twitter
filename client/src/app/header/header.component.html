@@ -9,6 +9,7 @@
           <a class="nav-link" [routerLink]="['twitter']">Twitter</a>
         </li>
         <li class="nav-item"  *ngIf="userinfo.id != '';else elseBlock">
+          {{userinfo.username}}
           <a class="nav-link" [routerLink]="['/logout']"> Logout </a>
         </li>
         <ng-template #elseBlock>
