@@ -1,6 +1,6 @@
 package edu.mum.cs544.eatwitter.dto;
 
-public class UserSummary {
+public class UserSummary implements UserIdAndUsername{
     private Long id;
     private String username;
     private String name;
@@ -11,7 +11,7 @@ public class UserSummary {
         this.name = name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

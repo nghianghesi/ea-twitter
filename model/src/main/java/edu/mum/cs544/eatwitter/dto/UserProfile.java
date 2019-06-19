@@ -2,7 +2,7 @@ package edu.mum.cs544.eatwitter.dto;
 
 import java.time.Instant;
 
-public class UserProfile {
+public class UserProfile  implements UserIdAndUsername{
     private Long id;
     private String username;
     private String name;
@@ -15,7 +15,7 @@ public class UserProfile {
         this.joinedAt = joinedAt;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

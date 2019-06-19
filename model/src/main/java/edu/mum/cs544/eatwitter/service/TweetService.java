@@ -1,6 +1,5 @@
 package edu.mum.cs544.eatwitter.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
 import edu.mum.cs544.eatwitter.dto.TweetRequest;
+import edu.mum.cs544.eatwitter.dto.TweetViewModel;
 import edu.mum.cs544.eatwitter.model.AbstractTweet;
 import edu.mum.cs544.eatwitter.model.PersistenceContextManager;
 import edu.mum.cs544.eatwitter.model.ThumbType;
@@ -43,19 +43,19 @@ public class TweetService {
 	PersistenceContextManager persistenceContextManager;
 	
 	public UUID queueTweet(UserPrincipal currentUser,TweetRequest tweet) {
-		TweetMessage msg = new TweetMessage(currentUser.getId(), tweet);
+		TweetMessage msg = new TweetMessage(currentUser, tweet);
 		template.convertAndSend(AppConstants.TWEET_QUEUE, msg);
 		return msg.getId();
 	}
 	
 	public UUID queueThumb(UserPrincipal currentUser,ThumbRequest thumb) {
-		ThumbMessage msg = new ThumbMessage(currentUser.getId(), thumb);
+		ThumbMessage msg = new ThumbMessage(currentUser, thumb);
 		template.convertAndSend(AppConstants.THUMB_QUEUE, msg);
 		return msg.getId();
 	}
 	
-	public UUID queueRetweet(UserPrincipal currentUser,RetweetRequest retweet) {
-		RetweetMessage msg = new RetweetMessage(currentUser.getId(), retweet);
+	public UUID queueRetweet(UserPrincipal currentUser, RetweetRequest retweet) {
+		RetweetMessage msg = new RetweetMessage(currentUser, retweet);
 		template.convertAndSend(AppConstants.RETWEET_QUEUE, msg);
 		return msg.getId();
 	}
@@ -71,32 +71,35 @@ public class TweetService {
 				.getContent();
 	}
 	
-	public AbstractTweet tweet(long currentUserId, TweetRequest tweet) {
-		Tweet entity = new Tweet();
+	public AbstractTweet tweet(long currentUserId, TweetRequest tweetRequest) {
+		Tweet tweet = null;
 		User user = this.userRepository.getOne(currentUserId);
 		if(user!=null) {
-			entity.setByUser(user);
-			entity.setDate(new Date());
-			entity.setTweet(tweet.getTweet());
-			persistenceContextManager.merge(entity);						
-			return entity;
-		}else {
-			return null;
+			tweet = new Tweet(user, tweetRequest.getTweet());
+			persistenceContextManager.persist(tweet);						
 		}
+
+		if(tweet!=null) {
+			this.template.convertAndSend(new TweetViewModel(tweet, user));
+		}
+		return tweet;
 	}
 	
 	public AbstractTweet thumb(long currentUserId, ThumbRequest thumb) {
 		AbstractTweet entity = this.tweetRepository.getOne(thumb.getTweet_id());
-		User user = this.userRepository.getOne(currentUserId);		
+		User user = this.userRepository.getOne(currentUserId);
+		AbstractTweet updatedTweet = null;
 		if(entity!=null && user!=null) {
 			if(thumb.getType() == ThumbType.Down) {
-				return entity.thumbDown(persistenceContextManager, user);
+				updatedTweet = entity.thumbDown(persistenceContextManager, user);
 			}else {
-				return entity.thumbUp(persistenceContextManager, user);
+				updatedTweet = entity.thumbUp(persistenceContextManager, user);
 			}
-		}else {
-			return null;
 		}
+		if(updatedTweet != null) {
+			this.template.convertAndSend(new TweetViewModel(updatedTweet, user));
+		}
+		return updatedTweet;
 	}
 	
 	public AbstractTweet retweet(long currentUserId, RetweetRequest retweet) {

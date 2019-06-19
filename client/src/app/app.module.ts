@@ -24,6 +24,7 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { TopTweetsComponent } from './top-tweets/top-tweets.component';
 import { RecentTweetsComponent } from './recent-tweets/recent-tweets.component';
 import { TweetFormComponent } from './tweet-form/tweet-form.component';
+import { NotificationWebsocketService } from './services/NotificationWebsocketService';
 
 
 
@@ -56,6 +57,7 @@ import { TweetFormComponent } from './tweet-form/tweet-form.component';
     Configurations,
     LoginService,
     TweetService,
+    NotificationWebsocketService,
     JWTCanActivate,
     ErrorService
   ],

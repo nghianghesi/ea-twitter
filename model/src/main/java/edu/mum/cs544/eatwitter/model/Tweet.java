@@ -1,5 +1,6 @@
 package edu.mum.cs544.eatwitter.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -41,6 +42,12 @@ public class Tweet extends AbstractTweet{
 	private int thumbStats;
 	private int retweetStats;
 	
+	public Tweet() {}
+	public Tweet(User by, String text){
+		this.setByUser(by);
+		this.setDate(new Date());
+		this.setTweet(text);
+	}
 	
 	
 	@Override

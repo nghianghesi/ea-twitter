@@ -2,6 +2,7 @@ package edu.mum.cs544.eatwitter.api.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import edu.mum.cs544.eatwitter.dto.UserIdAndUsername;
 import edu.mum.cs544.eatwitter.model.User;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,13 +14,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails, UserIdAndUsername{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private long id;
 
     private String name;
 
@@ -57,7 +58,7 @@ public class UserPrincipal implements UserDetails {
         );
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

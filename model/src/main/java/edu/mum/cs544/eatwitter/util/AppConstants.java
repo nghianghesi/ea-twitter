@@ -9,4 +9,5 @@ public interface AppConstants {
     String TWEET_QUEUE = "tweet";
     String THUMB_QUEUE = "thumb";
     String RETWEET_QUEUE = "retweet";
+    String TWEETUPDATED_QUEUE = "tweetupdated";
 }

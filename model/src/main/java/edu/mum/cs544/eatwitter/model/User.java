@@ -17,10 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.mum.cs544.eatwitter.api.security.UserPrincipal;
+import edu.mum.cs544.eatwitter.dto.UserIdAndUsername;
 import edu.mum.cs544.eatwitter.service.TweetService;
 
 @Entity
-public class User {
+public class User  implements UserIdAndUsername{
     private static final Logger logger = LoggerFactory.getLogger(TweetService.class);
 
 	@Id

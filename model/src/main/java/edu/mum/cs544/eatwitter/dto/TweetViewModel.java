@@ -1,5 +1,6 @@
 package edu.mum.cs544.eatwitter.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import edu.mum.cs544.eatwitter.model.AbstractTweet;
@@ -8,7 +9,7 @@ import edu.mum.cs544.eatwitter.model.Thumb;
 import edu.mum.cs544.eatwitter.model.ThumbType;
 import edu.mum.cs544.eatwitter.model.User;
 
-public class TweetViewModel {
+public class TweetViewModel implements Serializable{
 	private long id;	
 	private String tweet;
 	private Date date;	

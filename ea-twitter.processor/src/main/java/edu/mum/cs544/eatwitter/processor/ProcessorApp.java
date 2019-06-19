@@ -24,8 +24,6 @@ public class ProcessorApp {
         .web(WebApplicationType.NONE) //
         .run(args);
 	}
-
-
 	
 	@Bean
 	public Queue tweetQueue() {
@@ -41,4 +39,9 @@ public class ProcessorApp {
 	public Queue retweetQueue() {
 		return new Queue(AppConstants.RETWEET_QUEUE);
 	}
+	
+	@Bean
+	public Queue tweetupdatedQueue() {
+		return new Queue(AppConstants.TWEETUPDATED_QUEUE);
+	}	
 }
