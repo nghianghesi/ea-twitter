@@ -1,0 +1,17 @@
+<form  class="form-container" [formGroup]="myform" (ngSubmit)="onTweet()">
+  <mat-card-content class="form-container">
+    <mat-form-field>
+    <textarea matInput  placeholder="Tweet:" rows="2"
+    id="tweet" name="tweet" formControlName="tweet"></textarea>
+
+    <mat-error *ngIf="hasError('tweet', 'required')">Tweet is required.</mat-error>
+    <mat-error *ngIf="hasError('tweet', 'maxlength')">Tweet is too long.</mat-error>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button color="primary" type="submit" [disabled]="!myform.valid">tweet</button>
+  </mat-card-actions>
+</form>
+<p class="alert alert-danger" *ngIf="errors>''">{{errors}}</p>
+<p class="alert alert-success" *ngIf="tweetsucceeded">tweeted sucessfully</p>
+
