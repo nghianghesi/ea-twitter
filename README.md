@@ -1,5 +1,5 @@
 # ea-twitter
-A Case study of Enterprice architecture by 
+A Case study of enterprise architecture by 
 * Spring (boot, integration, REST, JWT, data, websocket)
 * Hibernate(inheritance, lazy collection, all kind of associations, JPA query, transaction, validation)
 * Angular (material, redux, websocket), Rxjs
