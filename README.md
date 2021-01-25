@@ -6,3 +6,9 @@ A Case study of enterprise architecture by
 * MySQL
 * RabbitMQ
 * Micro-service architecture
+
+
+*start mysql, import user data
+*start rabbitMQ
+*test users: test,test1,test2
+*test password: 123456
