@@ -16,7 +16,7 @@
   	<ea-twitter.version>0.0.1-SNAPSHOT</ea-twitter.version>
   	<hibernate.validation.version>6.0.16.Final</hibernate.validation.version>
   	<jjwt.version>0.9.1</jjwt.version>
-  	<jsoup.verion>1.11.3</jsoup.verion>
+  	<jsoup.verion>1.14.2</jsoup.verion>
   </properties>
     <dependencies>
 		<dependency>
